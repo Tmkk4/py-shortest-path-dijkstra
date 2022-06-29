@@ -51,7 +51,7 @@ def findProxima(dst, isFixed):
     i = 0
     for i in range(len(isFixed)):
         # 確定フラグを確認
-        if isFixed[i] is True :
+        if isFixed[i] is True:
             # 最短距離 確定済みの場合
             pass
         else:
@@ -114,9 +114,20 @@ def dijkstra(MAP, s, g):
 
 if __name__ == '__main__':
     # main()
-    #dst = [[]]
     print(f"cities:{N},dst:{W}")
     s = input('start point(0-9):')
     g = input('goal point(0-9):')
     result = dijkstra(W, s, g)
-    print(f"best solution path : "{result})
+
+    route = result[0]  # 始点から終点までの最短路訪問順列 :: list[int,...]
+    dst_g = result[1]  # 始点から終点までの最短路距離 :: float
+
+    if dst_g >= sys.maxsize:
+        print("解なし:非連結グラフ")
+
+    print(f"best solution path : {result}")
+    print('-'*10)
+    print(f"都市{s}から都市{g}まで...")
+    print(f"経路:{str(route).replace(',','-').replace('[').replace(']')}")
+    print(f"距離:{dst_g}")
+    print('-' * 10)
